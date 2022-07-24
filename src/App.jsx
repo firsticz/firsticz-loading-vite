@@ -36,24 +36,22 @@ function App() {
     playing ? pause(): play()
   }
 
-  // const [play, { stop, isPlaying }] = useSound(soundUrl);
-  // console.log(isPlaying);
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     if(playing){
-  //       audioRef.current.play()
-  //       btnRef.current.click()
-  //     }
-  //     console.log('This will run every second!');
-  //   }, 1000);
-  //   return () => clearInterval(interval);
-  // }, []);
-
-
   //MESSAGE
   console.log(playing);
   playing ? audioRef.current.play() : pause
+
+  const handleKeyDown = () => {
+    console.log('keydown');
+  }
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+
+    // cleanup this component
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [])
 
   return (
     <div className="App" ref={btnRef}>
